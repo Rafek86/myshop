@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace myshop.Web.Views.Shared
+namespace myshop.Web.Views.Shared;
+
+public class _DashboardModel : PageModel
 {
-    public class _DashboardModel : PageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-        }
     }
 }
