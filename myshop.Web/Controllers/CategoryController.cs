@@ -34,6 +34,7 @@ namespace myshop.Web.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+                TempData["Create"] = "Item Has Added Successfully";
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -58,6 +59,8 @@ namespace myshop.Web.Controllers
             {
                 _context.Categories.Update(category);
                 _context.SaveChanges();
+                TempData["Update"] = "Item Has Updated Successfully";
+
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -80,7 +83,7 @@ namespace myshop.Web.Controllers
         {
             _context.Categories.Remove(category);
             _context.SaveChanges();
-
+            TempData["Delete"] = "Item Has Deleted Successfully";
             return RedirectToAction("Index");
         }
     }
