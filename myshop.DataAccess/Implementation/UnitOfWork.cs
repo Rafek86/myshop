@@ -11,6 +11,7 @@ namespace myshop.DataAccess.Implementation
     public class UnitOfWork : IUnitOfWork
     {
         public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; } 
 
         private readonly ApplicationDbContext _context;
 
@@ -18,6 +19,7 @@ namespace myshop.DataAccess.Implementation
         {
             _context = context;
             Category=new CategoryRepository(_context);
+            Product=new ProductRepository(_context);
         }
 
         public int Complete()

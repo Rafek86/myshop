@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "View Products";
+    Layout = "_Dashboard";
+}
+
+<h3>Product List</h3>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered" id="mytable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}
+<br />
+<a asp-action="Create" asp-area="Admin" class="btn btn-info">Create</a>
