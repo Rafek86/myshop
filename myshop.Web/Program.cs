@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using myshop.DataAccess.Data;
 using myshop.DataAccess.Implementation;
 using myshop.Entities.Repositories;
+using Microsoft.AspNetCore.Identity;
+using myShop.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace myshop.Web;
 
@@ -19,6 +22,13 @@ public class Program
             builder.Configuration.GetConnectionString("DefaultConnection")
         ));
 
+        builder.Services.AddIdentity<IdentityUser,IdentityRole>(option=>
+        option.Lockout.DefaultLockoutTimeSpan=TimeSpan.FromDays(4))
+            .AddDefaultTokenProviders()
+           .AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>();
+
+        builder.Services.AddSingleton<IEmailSender, EmailSender>();
+            
         builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
         var app = builder.Build();
@@ -36,7 +46,9 @@ public class Program
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
+        app.MapRazorPages();
 
         // Route for the Admin area
         app.MapControllerRoute(
@@ -45,8 +57,9 @@ public class Program
 
         // Default route (when area is not specified)
         app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "default",
+                    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
 
         app.Run();
     }

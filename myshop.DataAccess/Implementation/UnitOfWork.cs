@@ -12,7 +12,7 @@ namespace myshop.DataAccess.Implementation
     {
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; } 
-
+        public IShoppingCartRepository ShoppingCart { get; private set; }   
         private readonly ApplicationDbContext _context;
 
         public UnitOfWork(ApplicationDbContext context) 
@@ -20,6 +20,7 @@ namespace myshop.DataAccess.Implementation
             _context = context;
             Category=new CategoryRepository(_context);
             Product=new ProductRepository(_context);
+            ShoppingCart=new ShoppingCartRepository(_context);  
         }
 
         public int Complete()

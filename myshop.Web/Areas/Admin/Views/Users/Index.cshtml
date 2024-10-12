@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ApplicationUser>
+
+
+@{
+    ViewBag.PageTitle = "Users Management";
+    ViewBag.CardTitle = "View Users";
+    Layout = "_Dashboard";
+}
+
+
+<h3>Category List</h3>
+
+<table class="table table-hover" width="100">
+    <tr>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Phone Number</td>
+        <td>Actions</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+            <td>
+                @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                {
+                    <a class="btn btn-success" asp-action="LockUnLock" asp-route-id="@item.Id">
+                        <i class="fas fa-lock-open"></i>
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-danger" asp-action="LockUnLock"asp-route-id="@item.Id">
+                        <i class="fas fa-lock-lock"></i>
+                    </a>
+                
+                }
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<a asp-action="Register" asp-controller="Account" asp-area="Identity" class="btn btn-info">Create</a>
